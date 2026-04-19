@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=League+Spartan:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--white-color: #ffffff;
+	--main-bgc-color: #f9f9f9;
+	--navy-color: #1f2041;
+	--gray-color: #adb6c4;
+	--gold-color: #d4af37;
+	--placeholder-color: #7e7e7e;
+	--red-alert-color: #af0808;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background-color: var(--main-bgc-color);
+	color: var(--navy-color);
+}
+
+header,
+footer {
+	background-color: var(--navy-color);
+}
+
+footer {
+	height: 25rem;
+	padding: 3.75rem 7.5rem;
+}
+
+header {
+	height: 31.25rem;
+	padding: 2.31rem 7.5rem;
+}
+
+/* main {
+	height: 50vh;
+} */
+
+.wrapper {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1920px;
+}
+
+/* HEADER SECTION */
+
+.nav {
+	color: var(--white-color);
+	text-transform: uppercase;
+	font-size: 1rem;
+}
+
+.nav-desktop {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 1920px;
+}
+
+.nav-logo {
+	font-weight: 700;
+	font-size: 2.25rem;
+}
+
+.nav-logo-h3 {
+	color: var(--gold-color);
+}
+
+.nav-logo-span {
+	color: var(--gray-color);
+}
+
+.nav-desktop-links {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.nav-ul {
+	gap: 1.875rem;
+	list-style: none;
+}
+
+.nav-li {
+	cursor: pointer;
+}
+
+.title-container {
+	text-align: center;
+	padding-top: 6.875rem;
+}
+
+.title {
+	font-size: 6rem;
+	font-family: 'League Gothic', sans-serif;
+	color: var(--white-color);
+	text-transform: uppercase;
+}
+.subtitle {
+	font-size: 2rem;
+	font-family: 'League Spartan', sans-serif;
+	letter-spacing: 36%;
+	color: var(--white-color);
+	text-transform: uppercase;
+}
+
+/* MAIN SECTION */
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.home-container {
+	padding: 5.25rem 15rem;
+	gap: 4rem;
+	align-items: center;
+}
+
+.hero-img {
+	background-size: cover;
+	/* width: 59.875rem; */
+	width: 100%;
+	border-radius: 1rem;
+	height: 19.43rem;
+	object-position: top;
+	object-fit: cover;
+}
+
+.about-and-skils-container {
+	gap: 2.5rem;
+}
+
+.about-me-section {
+	gap: 1.0625rem;
+}
+
+.main-section-title {
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: 'League Spartan', sans-serif;
+	color: var(--navy-color);
+}
+
+.main-text {
+	color: var(--navy-color);
+}
+
+/* FOOTER SECTION */
+
+.footer-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.footer-nav {
+	display: flex;
+	flex-direction: column;
+}
+
+.footer-container-contact {
+	display: flex;
+	flex-direction: column;
+	color: var(--white-color);
+	padding-top: 7.25rem;
+}
+
+.footer-contact {
+	display: flex;
+	flex-direction: column;
+	padding: 1.93rem 0;
+	gap: 1.875rem;
+	font-weight: 700;
+}
+
+.footer-logo-span {
+	font-weight: 700;
+	font-size: 1.68rem;
+}
