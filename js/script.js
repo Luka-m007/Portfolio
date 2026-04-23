@@ -1,6 +1,6 @@
 const headerSection = document.getElementById('header')
 const mainSection = document.getElementById('main')
-const liList = document.querySelectorAll('.nav-ul')
+const liList = document.querySelectorAll('.nav-li')
 
 // Header section
 const titleContainer = document.createElement('div')
@@ -25,43 +25,14 @@ function headerTitle(page) {
 	subtitle.textContent = headerContent[page].subtitle
 }
 
-// Main section
-function homeSection() {
-	mainSection.innerHTML = ''
-	const homeContainer = document.createElement('div')
-	homeContainer.classList.add('wrapper', 'home-container', 'flex-column')
-	mainSection.append(homeContainer)
-
-	const homeImg = document.createElement('img')
-	const aboutAndSkils = document.createElement('div')
-	homeContainer.append(homeImg, aboutAndSkils)
-
-	homeImg.classList.add('hero-img')
-	homeImg.setAttribute('src', './img/home-img-desktop.jpg')
-	aboutAndSkils.classList.add('about-and-skils-container', 'flex-column')
-
-	const aboutSection = document.createElement('div')
-	const mySkillsSection = document.createElement('div')
-	aboutAndSkils.append(aboutSection, mySkillsSection)
-
-	const aboutH3 = document.createElement('h3')
-	const mySkilsH3 = document.createElement('h3')
-	const aboutP = document.createElement('p')
-	aboutSection.append(aboutH3, aboutP)
-	mySkillsSection.append(mySkilsH3)
-
-	aboutP.classList.add('main-text')
-	aboutH3.classList.add('main-section-title')
-	mySkilsH3.classList.add('main-section-title')
-	aboutSection.classList.add('about-me-section', 'flex-column')
-	mySkilsH3.textContent = 'My Skills'
-	aboutH3.textContent = 'About me'
-
-	aboutP.textContent =
-		'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.'
+function updateActiveLink(page) {
+	liList.forEach(element => {
+		element.classList.remove('active')
+		if (element.id === page) {
+			element.classList.add('active')
+		}
+	})
 }
-
-// homeSection()
 
 function renderPage(page) {
 	switch (page) {
@@ -83,8 +54,12 @@ function renderPage(page) {
 	}
 }
 
-renderPage('home')
-
+// renderPage('home')
+// updateActiveLink('home')
 liList.forEach(element => {
-	element.addEventListener('click', e => renderPage(e.target.id))
+	element.addEventListener('click', e => {
+		const page = e.target.id
+		renderPage(page)
+		updateActiveLink(page)
+	})
 })
