@@ -109,39 +109,67 @@ function deleteProjectCard(projectCard) {
 }
 
 // Function validation title in modal
-function validationProjectTitile(projectTitile, projectLineFirst) {
+function validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer) {
 	if (projectTitile.value.length < 3 || projectTitile.value.length > 30) {
 		projectLineFirst.classList.remove('project-line-active')
 		projectLineFirst.classList.add('error')
-		console.log('error-title')
+		projectTitleError.classList.add('error-message')
+		projectTitleError.classList.remove('error-message-undispl')
+		titileContainer.style.margin = '0'
+
 		return false
 	} else {
 		projectLineFirst.classList.remove('error')
 		projectLineFirst.classList.add('project-line-active')
-		console.log('ok-title')
+		projectTitleError.classList.remove('error-message')
+		projectTitleError.classList.add('error-message-undispl')
+		titileContainer.style.margin = '0 0 3.75rem'
 		return true
 	}
 }
 
 // Function validation technologies in modal
-function validationProjectTechnologies(projectTechnologies, projectLineSecond) {
+function validationProjectTechnologies(
+	projectTechnologies,
+	projectLineSecond,
+	projectTechnologiesError,
+	technologiesContainer,
+) {
 	if (projectTechnologies.value.length <= 0) {
 		projectLineSecond.classList.remove('project-line-active')
 		projectLineSecond.classList.add('error')
-		console.log('error-technologies')
+		projectTechnologiesError.classList.remove('error-message-undispl')
+		projectTechnologiesError.classList.add('error-message')
+		technologiesContainer.style.margin = '0'
 		return false
 	} else {
 		projectLineSecond.classList.remove('error')
 		projectLineSecond.classList.add('project-line-active')
-		console.log('ok-technologies')
+		projectTechnologiesError.classList.remove('error-message')
+		projectTechnologiesError.classList.add('error-message-undispl')
+		technologiesContainer.style.margin = '0 0 3.215rem'
 		return true
 	}
 }
 
 // Function validation form in modal
-function vaidationProjectForm(projectTitile, projectTechnologies, projectLineFirst, projectLineSecond) {
-	const titleValid = validationProjectTitile(projectTitile, projectLineFirst)
-	const technologiesValid = validationProjectTechnologies(projectTechnologies, projectLineSecond)
+function vaidationProjectForm(
+	projectTitile,
+	projectTechnologies,
+	projectTitleError,
+	projectLineFirst,
+	projectLineSecond,
+	projectTechnologiesError,
+	titileContainer,
+	technologiesContainer,
+) {
+	const titleValid = validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer)
+	const technologiesValid = validationProjectTechnologies(
+		projectTechnologies,
+		projectLineSecond,
+		projectTechnologiesError,
+		technologiesContainer,
+	)
 	return titleValid && technologiesValid
 }
 
@@ -169,6 +197,9 @@ function showModal(projectCardsContainer) {
 	modalForm.classList.add('modal-form')
 	modal.append(modalForm)
 
+	const titileContainer = document.createElement('div')
+	titileContainer.classList.add('modal-container')
+
 	const projectTitleLabel = document.createElement('label')
 	projectTitleLabel.setAttribute('for', 'project-title')
 	projectTitleLabel.textContent = 'Project title'
@@ -183,6 +214,14 @@ function showModal(projectCardsContainer) {
 
 	const projectLineFirst = document.createElement('div')
 	projectLineFirst.classList.add('project-line', 'project-line-active')
+
+	const projectTitleError = document.createElement('p')
+	projectTitleError.classList.add('error-message-undispl', 'modal-error-text')
+	projectTitleError.textContent = 'The title must be at least 3 characters long.'
+
+	const technologiesContainer = document.createElement('div')
+	technologiesContainer.classList.add('modal-container')
+	modalForm.append(titileContainer, technologiesContainer)
 
 	const projectTechnologiesLabel = document.createElement('label')
 	projectTechnologiesLabel.setAttribute('for', 'project-technologies')
@@ -199,14 +238,27 @@ function showModal(projectCardsContainer) {
 	const projectLineSecond = document.createElement('div')
 	projectLineSecond.classList.add('project-line', 'project-line-active')
 
-	modalForm.append(
-		projectTitleLabel,
-		projectTitleInput,
-		projectLineFirst,
+	const projectTechnologiesError = document.createElement('p')
+	projectTechnologiesError.classList.add('error-message-undispl', 'modal-error-text')
+	projectTechnologiesError.textContent = 'Please add some technologies.'
+	// modalForm.append(projectTitleError, projectTechnologiesError)
+
+	titileContainer.append(projectTitleLabel, projectTitleInput, projectLineFirst, projectTitleError)
+	technologiesContainer.append(
 		projectTechnologiesLabel,
 		projectTechnologiesInput,
 		projectLineSecond,
+		projectTechnologiesError,
 	)
+
+	// modalForm.append(
+	// 	projectTitleLabel,
+	// 	projectTitleInput,
+	// 	projectLineFirst,
+	// 	projectTechnologiesLabel,
+	// 	projectTechnologiesInput,
+	// 	projectLineSecond,
+	// )
 
 	// Button
 	const btnsContainer = document.createElement('div')
@@ -223,11 +275,16 @@ function showModal(projectCardsContainer) {
 
 	// EventListener add project
 	projectTitleInput.addEventListener('input', () => {
-		validationProjectTitile(projectTitleInput, projectLineFirst)
+		validationProjectTitile(projectTitleInput, projectLineFirst, projectTitleError, titileContainer)
 	})
 
 	projectTechnologiesInput.addEventListener('input', () => {
-		validationProjectTechnologies(projectTechnologiesInput, projectLineSecond)
+		validationProjectTechnologies(
+			projectTechnologiesInput,
+			projectLineSecond,
+			projectTechnologiesError,
+			technologiesContainer,
+		)
 	})
 	addBtn.addEventListener('click', () => {
 		const project = {
@@ -238,8 +295,12 @@ function showModal(projectCardsContainer) {
 		const isValid = vaidationProjectForm(
 			projectTitleInput,
 			projectTechnologiesInput,
+			projectTitleError,
 			projectLineFirst,
 			projectLineSecond,
+			projectTechnologiesError,
+			titileContainer,
+			technologiesContainer,
 		)
 
 		if (!isValid) return

@@ -358,6 +358,12 @@ header {
 	margin: 0 0 1.6875rem;
 }
 
+.modal-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 3.75rem;
+}
+
 .modal-placeholder {
 	font-size: 1rem;
 	border: none;
@@ -373,7 +379,7 @@ header {
 .project-line {
 	width: 100%;
 	height: 2px;
-	margin: 0 0 3.75rem;
+	/* margin: 0 0 3.75rem; */
 }
 
 .project-line-active {
@@ -382,6 +388,18 @@ header {
 
 .error {
 	background-color: var(--red-alert-color);
+}
+.error-message {
+	color: var(--red-alert-color);
+	display: block;
+}
+.error-message-undispl {
+	display: none;
+}
+.modal-error-text {
+	margin-top: 0.36rem;
+	margin-bottom: 1.92rem;
+	font-size: 0.75rem;
 }
 
 /* FOOTER SECTION */
