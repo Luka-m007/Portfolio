@@ -6,9 +6,11 @@ const liList = document.querySelectorAll('.nav-li')
 const titleContainer = document.createElement('div')
 const title = document.createElement('h1')
 const subtitle = document.createElement('h2')
+
 titleContainer.classList.add('title-container')
 title.classList.add('title')
 subtitle.classList.add('subtitle')
+
 headerSection.append(titleContainer)
 titleContainer.append(title, subtitle)
 
@@ -37,7 +39,7 @@ function updateActiveLink(page) {
 function renderPage(page) {
 	switch (page) {
 		case 'home':
-			;(homeSection(), headerTitle(page))
+			;(homeSection(), carusel(), headerTitle(page))
 			break
 		case 'projects':
 			;(projectsSection(), headerTitle(page))
@@ -54,8 +56,8 @@ function renderPage(page) {
 	}
 }
 
-// renderPage('home')
-// updateActiveLink('home')
+renderPage('home')
+updateActiveLink('home')
 liList.forEach(element => {
 	element.addEventListener('click', e => {
 		const page = e.target.id

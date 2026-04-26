@@ -2,6 +2,7 @@ const projects = [
 	{ title: 'Test', technologies: ['Test1', 'test2'] },
 	{ title: 'Test1', technologies: ['Test3', 'test4'] },
 	{ title: 'Test2', technologies: ['Test5', 'test6'] },
+	{ title: 'Test3', technologies: ['Test7', 'test8'] },
 ]
 
 const projectAlert = document.createElement('span')
@@ -110,13 +111,21 @@ function deleteProjectCard(projectCard) {
 
 // Function validation title in modal
 function validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer) {
-	if (projectTitile.value.length < 3 || projectTitile.value.length > 30) {
+	if (projectTitile.value.length < 3) {
 		projectLineFirst.classList.remove('project-line-active')
 		projectLineFirst.classList.add('error')
 		projectTitleError.classList.add('error-message')
 		projectTitleError.classList.remove('error-message-undispl')
 		titileContainer.style.margin = '0'
 
+		return false
+	} else if (projectTitile.value.length > 30) {
+		projectLineFirst.classList.remove('project-line-active')
+		projectLineFirst.classList.add('error')
+		projectTitleError.textContent = 'The title must not exceed 30 characters.'
+		projectTitleError.classList.add('error-message')
+		projectTitleError.classList.remove('error-message-undispl')
+		titileContainer.style.margin = '0'
 		return false
 	} else {
 		projectLineFirst.classList.remove('error')
@@ -173,8 +182,7 @@ function vaidationProjectForm(
 	return titleValid && technologiesValid
 }
 
-// Function show modal
-function showModal(projectCardsContainer) {
+function createModalForm() {
 	// Modal background
 	const modalBackgroung = document.createElement('div')
 	modalBackgroung.classList.add('modal-background')
@@ -192,57 +200,62 @@ function showModal(projectCardsContainer) {
 	deleteXSymbol.classList.add('delete-x-symbol')
 	modal.append(deleteXSymbol)
 
-	// Modal content
-	const modalForm = document.createElement('form')
-	modalForm.classList.add('modal-form')
-	modal.append(modalForm)
+	return { modal, modalBackgroung, deleteXSymbol }
+}
 
+function createModalContent(modal) {
+	// Modal content
+
+	const modalForm = document.createElement('form')
 	const titileContainer = document.createElement('div')
+	const projectTitleLabel = document.createElement('label')
+	const projectTitleInput = document.createElement('input')
+	const projectLineFirst = document.createElement('div')
+	const projectTitleError = document.createElement('p')
+	const technologiesContainer = document.createElement('div')
+	const projectTechnologiesLabel = document.createElement('label')
+	const projectTechnologiesInput = document.createElement('input')
+	const projectLineSecond = document.createElement('div')
+	const projectTechnologiesError = document.createElement('p')
+
+	modalForm.classList.add('modal-form')
+
 	titileContainer.classList.add('modal-container')
 
-	const projectTitleLabel = document.createElement('label')
 	projectTitleLabel.setAttribute('for', 'project-title')
 	projectTitleLabel.textContent = 'Project title'
 	projectTitleLabel.classList.add('modal-title')
 
-	const projectTitleInput = document.createElement('input')
 	projectTitleInput.setAttribute('type', 'text')
 	projectTitleInput.setAttribute('id', 'projectTitle')
 	projectTitleInput.setAttribute('name', 'project-title')
 	projectTitleInput.setAttribute('placeholder', 'Project title')
 	projectTitleInput.classList.add('modal-placeholder')
 
-	const projectLineFirst = document.createElement('div')
 	projectLineFirst.classList.add('project-line', 'project-line-active')
 
-	const projectTitleError = document.createElement('p')
 	projectTitleError.classList.add('error-message-undispl', 'modal-error-text')
 	projectTitleError.textContent = 'The title must be at least 3 characters long.'
 
-	const technologiesContainer = document.createElement('div')
 	technologiesContainer.classList.add('modal-container')
-	modalForm.append(titileContainer, technologiesContainer)
 
-	const projectTechnologiesLabel = document.createElement('label')
 	projectTechnologiesLabel.setAttribute('for', 'project-technologies')
 	projectTechnologiesLabel.textContent = 'Technologies'
 	projectTechnologiesLabel.classList.add('modal-title')
 
-	const projectTechnologiesInput = document.createElement('input')
 	projectTechnologiesInput.setAttribute('type', 'text')
 	projectTechnologiesInput.setAttribute('id', 'projectTechnologies')
 	projectTechnologiesInput.setAttribute('name', 'project-technologies')
 	projectTechnologiesInput.setAttribute('placeholder', 'html,css,javascript')
 	projectTechnologiesInput.classList.add('modal-placeholder')
 
-	const projectLineSecond = document.createElement('div')
 	projectLineSecond.classList.add('project-line', 'project-line-active')
 
-	const projectTechnologiesError = document.createElement('p')
 	projectTechnologiesError.classList.add('error-message-undispl', 'modal-error-text')
 	projectTechnologiesError.textContent = 'Please add some technologies.'
-	// modalForm.append(projectTitleError, projectTechnologiesError)
 
+	modal.append(modalForm)
+	modalForm.append(titileContainer, technologiesContainer)
 	titileContainer.append(projectTitleLabel, projectTitleInput, projectLineFirst, projectTitleError)
 	technologiesContainer.append(
 		projectTechnologiesLabel,
@@ -251,22 +264,48 @@ function showModal(projectCardsContainer) {
 		projectTechnologiesError,
 	)
 
-	// modalForm.append(
-	// 	projectTitleLabel,
-	// 	projectTitleInput,
-	// 	projectLineFirst,
-	// 	projectTechnologiesLabel,
-	// 	projectTechnologiesInput,
-	// 	projectLineSecond,
-	// )
-
 	// Button
 	const btnsContainer = document.createElement('div')
-	btnsContainer.classList.add('btn-modal-container')
-	modal.append(btnsContainer)
 	const addBtn = createAddBtn('Add project')
+
+	btnsContainer.classList.add('btn-modal-container')
 	addBtn.setAttribute('type', 'submit')
+
+	modal.append(btnsContainer)
 	btnsContainer.append(addBtn)
+
+	return {
+		modalForm,
+		titileContainer,
+		projectTitleLabel,
+		projectLineFirst,
+		projectTitleError,
+		technologiesContainer,
+		projectTechnologiesLabel,
+		projectTitleInput,
+		projectTechnologiesInput,
+		projectLineSecond,
+		projectTechnologiesError,
+		addBtn,
+	}
+}
+
+// Function show modal
+function showModal(projectCardsContainer) {
+	const { modal, modalBackgroung, deleteXSymbol, modalForm } = createModalForm()
+	const {
+		titileContainer,
+		projectTitleLabel,
+		projectLineFirst,
+		projectTitleError,
+		technologiesContainer,
+		projectTechnologiesLabel,
+		projectTitleInput,
+		projectTechnologiesInput,
+		projectLineSecond,
+		projectTechnologiesError,
+		addBtn,
+	} = createModalContent(modal)
 
 	// EventListener close modal
 	deleteXSymbol.addEventListener('click', () => {

@@ -96,3 +96,195 @@ function homeSection() {
 		skillsExperienceYears.classList.add('skills-experience-years')
 	})
 }
+
+function caruseleContent() {
+	const caruseleWrapper = document.createElement('div')
+	const caruselContainer = document.createElement('div')
+	const caruselSlider = document.createElement('div')
+	const caruselBtnContainer = document.createElement('div')
+	const btnSquareLeft = document.createElement('div')
+	const btnSquareRight = document.createElement('div')
+	const btnLeftUp = document.createElement('img')
+	const btnRightDown = document.createElement('img')
+
+	caruseleWrapper.classList.add('carusele-wrapper')
+	caruselContainer.classList.add('carusel-container')
+	caruselSlider.classList.add('carusel-slider')
+	caruselBtnContainer.classList.add('carusel-btn-container')
+	btnSquareLeft.classList.add('btn-carusel')
+	btnSquareRight.classList.add('btn-carusel')
+	btnLeftUp.classList.add('btn-left', 'btn-up')
+	btnRightDown.classList.add('btn-right', 'btn-down')
+	btnSquareLeft.setAttribute('id', 'left-btn')
+	btnSquareRight.setAttribute('id', 'right-btn')
+	btnLeftUp.setAttribute('src', './img/Arrow-right.png')
+	btnLeftUp.setAttribute('alt', 'Strzałka skierowowana w lewą stronę')
+	btnRightDown.setAttribute('src', './img/Arrow-right.png')
+	btnRightDown.setAttribute('alt', 'Strzałka skierowowana w lewą stronę')
+
+	mainSection.append(caruseleWrapper, caruselBtnContainer)
+	caruseleWrapper.append(caruselContainer)
+	caruselContainer.append(caruselSlider)
+	caruselBtnContainer.append(btnSquareLeft, btnSquareRight)
+	btnSquareLeft.append(btnLeftUp)
+	btnSquareRight.append(btnRightDown)
+
+	return {
+		caruseleWrapper,
+		caruselContainer,
+		caruselSlider,
+		caruselBtnContainer,
+		btnSquareLeft,
+		btnSquareRight,
+		btnLeftUp,
+		btnRightDown,
+	}
+}
+
+// function caruseleCards(caruselSlider) {
+// 	for (let i = 0; i < 3; i++) {
+// 		createProjectCard(caruselSlider, projects[i])
+// 	}
+// }
+
+function caruseleCards(caruselSlider) {
+	projects.forEach(project => {
+		createProjectCard(caruselSlider, project)
+	})
+}
+
+function deleteBtnsCarusel(caruselBtnContainer) {
+	if (projects.length > 3) {
+		caruselBtnContainer.style.display = 'flex'
+	}
+}
+
+function carusel() {
+	const { caruselSlider, caruselBtnContainer } = caruseleContent()
+	caruseleCards(caruselSlider)
+	deleteBtnsCarusel(caruselBtnContainer)
+
+	let startIndex = 0
+	updateCarouselCards(startIndex)
+
+	const prevBtn = document.getElementById('left-btn')
+	const nextBtn = document.getElementById('right-btn')
+
+	nextBtn.addEventListener('click', () => {
+		startIndex = (startIndex + 1) % projects.length
+		updateCarouselCards(startIndex)
+	})
+
+	prevBtn.addEventListener('click', () => {
+		startIndex = (startIndex - 1 + projects.length) % projects.length
+		updateCarouselCards(startIndex)
+	})
+}
+
+function updateCarouselCards(startIndex) {
+	const cards = document.querySelectorAll('.project-card')
+	// console.log(cards)
+	cards.forEach((card, i) => {
+		const project = projects[(startIndex + i) % projects.length]
+		console.log(project)
+		console.log((startIndex + 1) % projects.length)
+		const cardTitle = card.querySelector('.project-card-title')
+		// console.log(projectTitle)
+		cardTitle.textContent = project.title
+
+		// console.log(project.technologies)
+
+		const ul = card.querySelector('.project-card-ul')
+		ul.innerHTML = ''
+		project.technologies.forEach(tech => {
+			const li = document.createElement('li')
+			li.classList.add('project-card-li')
+			li.textContent = tech
+			ul.append(li)
+			// console.log(li)
+		})
+	})
+}
+
+// function carusel() {
+// 	const {
+// 		caruseleWrapper,
+// 		caruselContainer,
+// 		caruselSlider,
+// 		caruselBtnContainer,
+// 		btnSquareLeft,
+// 		btnSquareRight,
+// 		btnLeftUp,
+// 		btnRightDown,
+// 	} = caruseleContent()
+// 	caruseleCards(caruselSlider)
+// 	// caruselLogic(caruselSlider)
+
+// 	let startIndex = 0
+// 	updateCarouselCards(startIndex)
+
+// 	const prevBtn = document.getElementById('left-btn')
+// 	const nextBtn = document.getElementById('right-btn')
+
+// 	nextBtn.addEventListener('click', () => {
+// 		startIndex = startIndex >= projects.length - 1 ? 0 : startIndex + 1
+// 		updateCarouselCards(startIndex)
+// 	})
+
+// 	prevBtn.addEventListener('click', () => {
+// 		startIndex = startIndex <= 0 ? projects.length - 1 : startIndex - 1
+// 		updateCarouselCards(startIndex)
+// 	})
+// }
+
+// function caruselLogic(caruselSlider) {
+// 	const slide = document.querySelector('.carusel-slider')
+// 	const project = document.querySelectorAll('.project-card')
+// 	const prevBtn = document.getElementById('left-btn')
+// 	const nextBtn = document.getElementById('right-btn')
+
+// 	const allCards = Array.from(caruselSlider.children)
+// 	const cloneCount = 3
+
+// 	let counter = cloneCount
+// 	const gap = 41
+// 	const size = project[0].clientWidth + gap
+
+// 	allCards.slice(0, cloneCount).forEach(card => {
+// 		caruselSlider.append(card.cloneNode(true))
+// 	})
+// 	allCards.slice(-cloneCount).forEach(card => {
+// 		caruselSlider.prepend(card.cloneNode(true))
+// 	})
+
+// 	slide.style.transform = `translateX(${-size * counter}px)`
+
+// 	const projectLength = document.querySelectorAll('.project-card').length
+
+// 	slide.addEventListener('transitionend', () => {
+// 		if (counter >= projectLength - cloneCount) {
+// 			slide.style.transition = 'none'
+// 			counter = cloneCount
+// 			slide.style.transform = `translateX(${-size * counter}px)`
+// 		}
+// 		if (counter <= cloneCount - 1) {
+// 			slide.style.transition = 'none'
+// 			counter = projectLength - cloneCount - 1
+// 			slide.style.transform = `translateX(${-size * counter}px)`
+// 		}
+// 	})
+
+// 	nextBtn.addEventListener('click', () => {
+// 		if (counter >= projectLength - cloneCount) return
+// 		slide.style.transition = 'transform 0.5s ease-in-out'
+// 		counter++
+// 		slide.style.transform = `translateX(${-size * counter}px)`
+// 	})
+
+// 	prevBtn.addEventListener('click', () => {
+// 		if (counter <= cloneCount - 1) return
+// 		slide.style.transition = 'transform 0.5s ease-in-out'
+// 		counter--
+// 		slide.style.transform = `translateX(${-size * counter}px)`
+// 	})
+// }
