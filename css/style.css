@@ -38,6 +38,7 @@ footer {
 header {
 	height: 31.25rem;
 	padding: 2.31rem 7.5rem;
+	position: relative;
 }
 
 /* main {
@@ -119,12 +120,8 @@ header {
 }
 
 .nav-hamburger-menu {
-	display: block;
+	display: none;
 	cursor: pointer;
-}
-
-.nav-mobile-active path {
-	fill: var(--gold-color);
 }
 
 /* MAIN SECTION */
@@ -527,6 +524,31 @@ header {
 		padding: 0.625rem 1rem;
 	}
 
+	.nav-mobile-container {
+		display: none;
+		position: absolute;
+		top: 5.625rem;
+		left: -2px;
+		width: 100%;
+		height: 17.875rem;
+		border-top: 1px solid var(--main-bgc-color);
+		border-bottom: 1px solid var(--main-bgc-color);
+		background-color: var(--navy-color);
+		z-index: 1000;
+	}
+
+	.nav-mobile-shown {
+		display: block;
+	}
+
+	.nav-hamburger-menu {
+		display: block;
+	}
+
+	.nav-menu-mobile path {
+		fill: var(--gold-color);
+	}
+
 	.nav-logo-desktop {
 		display: none;
 	}
@@ -536,7 +558,9 @@ header {
 	}
 
 	.nav-desktop-links {
-		display: none;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 1.75rem 0 1.75rem 3.1875rem;
 	}
 
 	.home-container {

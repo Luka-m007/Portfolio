@@ -1,6 +1,14 @@
 const headerSection = document.getElementById('header')
 const mainSection = document.getElementById('main')
 const liList = document.querySelectorAll('.nav-li')
+const hamburgerMenu = document.querySelector('.nav-hamburger-menu')
+
+// Hamburger menu toggle
+hamburgerMenu.addEventListener('click', () => {
+	const navMobileContainer = document.querySelector('.nav-mobile-container')
+	hamburgerMenu.classList.toggle('nav-menu-mobile')
+	navMobileContainer.classList.toggle('nav-mobile-shown')
+})
 
 // Header section
 const titleContainer = document.createElement('div')
