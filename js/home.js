@@ -183,25 +183,17 @@ function carusel() {
 
 function updateCarouselCards(startIndex) {
 	const cards = document.querySelectorAll('.project-card')
-	// console.log(cards)
 	cards.forEach((card, i) => {
 		const project = projects[(startIndex + i) % projects.length]
-		console.log(project)
-		console.log((startIndex + 1) % projects.length)
 		const cardTitle = card.querySelector('.project-card-title')
-		// console.log(projectTitle)
-		cardTitle.textContent = project.title
-
-		// console.log(project.technologies)
-
 		const ul = card.querySelector('.project-card-ul')
+		cardTitle.textContent = project.title
 		ul.innerHTML = ''
 		project.technologies.forEach(tech => {
 			const li = document.createElement('li')
 			li.classList.add('project-card-li')
 			li.textContent = tech
 			ul.append(li)
-			// console.log(li)
 		})
 	})
 }

@@ -25,6 +25,7 @@ const headerContent = {
 function headerTitle(page) {
 	title.textContent = headerContent[page].title
 	subtitle.textContent = headerContent[page].subtitle
+	subtitle.classList.toggle('subtitle-mobile', page === 'projects')
 }
 
 function updateActiveLink(page) {

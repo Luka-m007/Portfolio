@@ -116,7 +116,8 @@ function validationProjectTitile(projectTitile, projectLineFirst, projectTitleEr
 		projectLineFirst.classList.add('error')
 		projectTitleError.classList.add('error-message')
 		projectTitleError.classList.remove('error-message-undispl')
-		titileContainer.style.margin = '0'
+		// titileContainer.style.margin = '0'
+		titileContainer.classList.add('modal-container-no-margin')
 
 		return false
 	} else if (projectTitile.value.length > 30) {
@@ -125,14 +126,18 @@ function validationProjectTitile(projectTitile, projectLineFirst, projectTitleEr
 		projectTitleError.textContent = 'The title must not exceed 30 characters.'
 		projectTitleError.classList.add('error-message')
 		projectTitleError.classList.remove('error-message-undispl')
-		titileContainer.style.margin = '0'
+		// titileContainer.style.margin = '0'
+		titileContainer.classList.add('modal-container-no-margin')
+
 		return false
 	} else {
 		projectLineFirst.classList.remove('error')
 		projectLineFirst.classList.add('project-line-active')
 		projectTitleError.classList.remove('error-message')
 		projectTitleError.classList.add('error-message-undispl')
-		titileContainer.style.margin = '0 0 3.75rem'
+		// titileContainer.style.margin = '0 0 3.75rem'
+		titileContainer.classList.remove('modal-container-no-margin')
+
 		return true
 	}
 }
@@ -149,14 +154,16 @@ function validationProjectTechnologies(
 		projectLineSecond.classList.add('error')
 		projectTechnologiesError.classList.remove('error-message-undispl')
 		projectTechnologiesError.classList.add('error-message')
-		technologiesContainer.style.margin = '0'
+		technologiesContainer.classList.add('modal-container-no-margin')
+		technologiesContainer.classList.remove('modal-container-tech')
 		return false
 	} else {
 		projectLineSecond.classList.remove('error')
 		projectLineSecond.classList.add('project-line-active')
 		projectTechnologiesError.classList.remove('error-message')
 		projectTechnologiesError.classList.add('error-message-undispl')
-		technologiesContainer.style.margin = '0 0 3.215rem'
+		technologiesContainer.classList.remove('modal-container-no-margin')
+		technologiesContainer.classList.add('modal-container-tech')
 		return true
 	}
 }
