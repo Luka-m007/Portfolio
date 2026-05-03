@@ -9,20 +9,29 @@ const skills = [
 	{ language: 'GitHub', experience: 4 },
 ]
 
-// Main section - HOME
-function homeSection() {
-	mainSection.innerHTML = ''
+function mainSectionImg(homeContainer) {
+	const homeImg = document.createElement('img')
+	homeImg.classList.add('hero-img')
+	homeImg.setAttribute('src', './img/home-img-desktop.jpg')
+	homeContainer.append(homeImg)
+}
+
+function mainWrapperContainer() {
 	const homeContainer = document.createElement('div')
 	homeContainer.classList.add('wrapper', 'home-container', 'flex-column')
 	mainSection.append(homeContainer)
+	return homeContainer
+}
 
-	const homeImg = document.createElement('img')
+// Main section - HOME
+function homeSection() {
+	mainSection.innerHTML = ''
+	const homeContainer = mainWrapperContainer()
+
+	mainSectionImg(homeContainer)
 	const aboutAndSkils = document.createElement('div')
-	homeContainer.append(homeImg, aboutAndSkils)
+	homeContainer.append(aboutAndSkils)
 
-	//img
-	homeImg.classList.add('hero-img')
-	homeImg.setAttribute('src', './img/home-img-desktop.jpg')
 	aboutAndSkils.classList.add('about-and-skils-container', 'flex-column')
 
 	const aboutSection = document.createElement('div')

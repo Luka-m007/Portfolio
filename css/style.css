@@ -485,6 +485,24 @@ header {
 	font-size: 0.75rem;
 }
 
+/* ABOUT */
+
+.remove-padding {
+	padding: 0 0 5.25rem 0;
+}
+
+.btn-contact {
+	display: flex;
+	align-items: center;
+	width: 1.875rem;
+	height: 1.5rem;
+	color: var(--navy-color);
+}
+
+.about-text {
+	white-space: pre-line;
+}
+
 /* FOOTER SECTION */
 
 .footer-container {
@@ -537,6 +555,9 @@ header {
 		z-index: 1000;
 	}
 
+	.title {
+		padding-bottom: 2rem;
+	}
 	.nav-mobile-shown {
 		display: block;
 	}
@@ -574,14 +595,20 @@ header {
 
 	.carusele-wrapper {
 		padding: 0 0.625rem;
+		display: flex;
+		justify-content: center;
 	}
 
 	.carusel-container {
 		max-height: calc(3 * 28.75rem + 2 * 2.5625rem);
+		display: flex;
+		justify-content: center;
 	}
 
 	.carusel-slider {
 		flex-direction: column;
+		width: auto;
+		align-items: center;
 	}
 
 	.btn-left {
@@ -643,5 +670,11 @@ header {
 
 	.modal-container {
 		margin: 0 0 2.5rem;
+	}
+
+	/* ABOUT */
+
+	.remove-padding {
+		padding: 0 0 5.25rem 0;
 	}
 }

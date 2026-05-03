@@ -1,0 +1,6 @@
+function contactSection() {
+	mainSection.innerHTML = ''
+
+
+    
+}

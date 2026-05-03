@@ -2,12 +2,19 @@ const headerSection = document.getElementById('header')
 const mainSection = document.getElementById('main')
 const liList = document.querySelectorAll('.nav-li')
 const hamburgerMenu = document.querySelector('.nav-hamburger-menu')
+const footerYear = document.querySelector('.footer-year')
 
 // Hamburger menu toggle
 hamburgerMenu.addEventListener('click', () => {
 	const navMobileContainer = document.querySelector('.nav-mobile-container')
 	hamburgerMenu.classList.toggle('nav-menu-mobile')
 	navMobileContainer.classList.toggle('nav-mobile-shown')
+
+	liList.forEach(item => {
+		item.addEventListener('click', () => {
+			navMobileContainer.classList.remove('nav-mobile-shown')
+		})
+	})
 })
 
 // Header section
@@ -65,6 +72,11 @@ function renderPage(page) {
 	}
 }
 
+const currentYear = () => {
+	const year = new Date().getFullYear()
+	footerYear.innerText = year
+}
+
 renderPage('home')
 updateActiveLink('home')
 liList.forEach(element => {
@@ -74,3 +86,4 @@ liList.forEach(element => {
 		updateActiveLink(page)
 	})
 })
+currentYear()

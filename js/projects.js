@@ -15,7 +15,7 @@ function projectsSection() {
 
 	const projectsContainer = document.createElement('div')
 	const btnsContainer = document.createElement('div')
-	const addBtnProject = createAddBtn('Add project')
+	const addBtnProject = createAddBtn('Add project', './img/plus-symbol.png', 'Symbol plusa', 'btn-plus')
 	const projectCardsContainer = document.createElement('div')
 
 	projectsContainer.classList.add('wrapper', 'projects-container')
@@ -35,15 +35,17 @@ function projectsSection() {
 }
 
 // Function create Btn
-function createAddBtn(text) {
+function createAddBtn(text, src, alt, className) {
 	const btn = document.createElement('button')
 	const btnPlus = document.createElement('img')
 
 	btn.classList.add('add-btn')
-	btnPlus.classList.add('btn-plus')
+	if (className) {
+		btnPlus.classList.add(className)
+	}
 	btn.textContent = text
-	btnPlus.setAttribute('src', './img/plus-symbol.png')
-	btnPlus.setAttribute('alt', 'Sybmol plusa')
+	btnPlus.setAttribute('src', src)
+	btnPlus.setAttribute('alt', alt)
 
 	btn.append(btnPlus)
 
@@ -273,10 +275,10 @@ function createModalContent(modal) {
 
 	// Button
 	const btnsContainer = document.createElement('div')
-	const addBtn = createAddBtn('Add project')
+	const addBtn = createAddBtn('Add project', './img/plus-symbol.png', 'Symbol plusa', 'btn-plus')
 
 	btnsContainer.classList.add('btn-modal-container')
-	addBtn.setAttribute('type', 'submit')
+	addBtn.setAttribute('type', 'button')
 
 	modal.append(btnsContainer)
 	btnsContainer.append(addBtn)
