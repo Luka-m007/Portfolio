@@ -35,19 +35,19 @@ function projectsSection() {
 }
 
 // Function create Btn
-function createAddBtn(text, src, alt, className) {
+function createAddBtn(text, src = null, alt = null, className) {
 	const btn = document.createElement('button')
-	const btnPlus = document.createElement('img')
 
 	btn.classList.add('add-btn')
-	if (className) {
-		btnPlus.classList.add(className)
-	}
 	btn.textContent = text
-	btnPlus.setAttribute('src', src)
-	btnPlus.setAttribute('alt', alt)
 
-	btn.append(btnPlus)
+	if (src) {
+		const btnPlus = document.createElement('img')
+		if (className) btnPlus.classList.add(className)
+		btnPlus.setAttribute('src', src)
+		btnPlus.setAttribute('alt', alt)
+		btn.append(btnPlus)
+	}
 
 	return btn
 }
@@ -111,37 +111,25 @@ function deleteProjectCard(projectCard) {
 	projectCard.remove()
 }
 
+// Generic helper - reusable in any form validation
+function setFieldValidity(isTrue, line, errorText, container) {
+	line.classList.toggle('error', !isTrue)
+	line.classList.toggle('project-line-active', isTrue)
+	errorText.classList.toggle('error-message', !isTrue)
+	errorText.classList.toggle('error-message-undispl', isTrue)
+	container.classList.toggle('modal-container-no-margin', !isTrue)
+	return isTrue
+}
+
 // Function validation title in modal
 function validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer) {
-	if (projectTitile.value.length < 3) {
-		projectLineFirst.classList.remove('project-line-active')
-		projectLineFirst.classList.add('error')
-		projectTitleError.classList.add('error-message')
-		projectTitleError.classList.remove('error-message-undispl')
-		// titileContainer.style.margin = '0'
-		titileContainer.classList.add('modal-container-no-margin')
-
-		return false
-	} else if (projectTitile.value.length > 30) {
-		projectLineFirst.classList.remove('project-line-active')
-		projectLineFirst.classList.add('error')
-		projectTitleError.textContent = 'The title must not exceed 30 characters.'
-		projectTitleError.classList.add('error-message')
-		projectTitleError.classList.remove('error-message-undispl')
-		// titileContainer.style.margin = '0'
-		titileContainer.classList.add('modal-container-no-margin')
-
-		return false
-	} else {
-		projectLineFirst.classList.remove('error')
-		projectLineFirst.classList.add('project-line-active')
-		projectTitleError.classList.remove('error-message')
-		projectTitleError.classList.add('error-message-undispl')
-		// titileContainer.style.margin = '0 0 3.75rem'
-		titileContainer.classList.remove('modal-container-no-margin')
-
-		return true
+	const title = projectTitile.value.length
+	if (title < 3 || title > 30) {
+		projectTitleError.textContent =
+			title < 3 ? 'The title must be at least 3 characters long.' : 'The title must not exceed 30 characters.'
+		return setFieldValidity(false, projectLineFirst, projectTitleError, titileContainer)
 	}
+	return setFieldValidity(true, projectLineFirst, projectTitleError, titileContainer)
 }
 
 // Function validation technologies in modal
@@ -151,23 +139,9 @@ function validationProjectTechnologies(
 	projectTechnologiesError,
 	technologiesContainer,
 ) {
-	if (projectTechnologies.value.length <= 0) {
-		projectLineSecond.classList.remove('project-line-active')
-		projectLineSecond.classList.add('error')
-		projectTechnologiesError.classList.remove('error-message-undispl')
-		projectTechnologiesError.classList.add('error-message')
-		technologiesContainer.classList.add('modal-container-no-margin')
-		technologiesContainer.classList.remove('modal-container-tech')
-		return false
-	} else {
-		projectLineSecond.classList.remove('error')
-		projectLineSecond.classList.add('project-line-active')
-		projectTechnologiesError.classList.remove('error-message')
-		projectTechnologiesError.classList.add('error-message-undispl')
-		technologiesContainer.classList.remove('modal-container-no-margin')
-		technologiesContainer.classList.add('modal-container-tech')
-		return true
-	}
+	const technologies = projectTechnologies.value.length > 0
+	technologiesContainer.classList.toggle('modal-container-tech', technologies)
+	return setFieldValidity(technologies, projectLineSecond, projectTechnologiesError, technologiesContainer)
 }
 
 // Function validation form in modal
@@ -212,66 +186,81 @@ function createModalForm() {
 	return { modal, modalBackgroung, deleteXSymbol }
 }
 
+
+function containerForm(label, pError, name, id, placeholder, classes = {}) {
+	const formContainer = document.createElement('div')
+	const formLabel = document.createElement('label')
+	const formInput = document.createElement('input')
+	const formLine = document.createElement('div')
+	const formPError = document.createElement('p')
+
+	if (classes.formContainer) formContainer.classList.add(...classes.formContainer)
+	if (classes.formLabel) formLabel.classList.add(...classes.formLabel)
+	if (classes.formInput) formInput.classList.add(...classes.formInput)
+	if (classes.formLine) formLine.classList.add(...classes.formLine)
+	if (classes.formPError) formPError.classList.add(...classes.formPError)
+
+	formLabel.setAttribute('for', id)
+
+	formInput.setAttribute('type', 'text')
+	formInput.setAttribute('id', id)
+	formInput.setAttribute('name', name)
+	formInput.setAttribute('placeholder', placeholder)
+
+	formLabel.textContent = label
+	formPError.textContent = pError
+
+	formContainer.append(formLabel, formInput, formLine, formPError)
+
+	return { formContainer, formLabel, formInput, formLine, formPError }
+}
+
 function createModalContent(modal) {
-	// Modal content
-
 	const modalForm = document.createElement('form')
-	const titileContainer = document.createElement('div')
-	const projectTitleLabel = document.createElement('label')
-	const projectTitleInput = document.createElement('input')
-	const projectLineFirst = document.createElement('div')
-	const projectTitleError = document.createElement('p')
-	const technologiesContainer = document.createElement('div')
-	const projectTechnologiesLabel = document.createElement('label')
-	const projectTechnologiesInput = document.createElement('input')
-	const projectLineSecond = document.createElement('div')
-	const projectTechnologiesError = document.createElement('p')
-
 	modalForm.classList.add('modal-form')
 
-	titileContainer.classList.add('modal-container')
+	const {
+		formContainer: titileContainer,
+		formInput: projectTitleInput,
+		formLine: projectLineFirst,
+		formPError: projectTitleError,
+	} = containerForm(
+		'Project title',
+		'The title must be at least 3 characters long.',
+		'project-title',
+		'projectTitle',
+		'Project title',
+		{
+			formContainer: ['modal-container'],
+			formLabel: ['modal-title'],
+			formInput: ['modal-placeholder'],
+			formLine: ['project-line', 'project-line-active'],
+			formPError: ['error-message-undispl', 'modal-error-text'],
+		},
+	)
 
-	projectTitleLabel.setAttribute('for', 'project-title')
-	projectTitleLabel.textContent = 'Project title'
-	projectTitleLabel.classList.add('modal-title')
-
-	projectTitleInput.setAttribute('type', 'text')
-	projectTitleInput.setAttribute('id', 'projectTitle')
-	projectTitleInput.setAttribute('name', 'project-title')
-	projectTitleInput.setAttribute('placeholder', 'Project title')
-	projectTitleInput.classList.add('modal-placeholder')
-
-	projectLineFirst.classList.add('project-line', 'project-line-active')
-
-	projectTitleError.classList.add('error-message-undispl', 'modal-error-text')
-	projectTitleError.textContent = 'The title must be at least 3 characters long.'
-
-	technologiesContainer.classList.add('modal-container')
-
-	projectTechnologiesLabel.setAttribute('for', 'project-technologies')
-	projectTechnologiesLabel.textContent = 'Technologies'
-	projectTechnologiesLabel.classList.add('modal-title')
-
-	projectTechnologiesInput.setAttribute('type', 'text')
-	projectTechnologiesInput.setAttribute('id', 'projectTechnologies')
-	projectTechnologiesInput.setAttribute('name', 'project-technologies')
-	projectTechnologiesInput.setAttribute('placeholder', 'html,css,javascript')
-	projectTechnologiesInput.classList.add('modal-placeholder')
-
-	projectLineSecond.classList.add('project-line', 'project-line-active')
-
-	projectTechnologiesError.classList.add('error-message-undispl', 'modal-error-text')
-	projectTechnologiesError.textContent = 'Please add some technologies.'
+	const {
+		formContainer: technologiesContainer,
+		formInput: projectTechnologiesInput,
+		formLine: projectLineSecond,
+		formPError: projectTechnologiesError,
+	} = containerForm(
+		'Technologies',
+		'Please add some technologies.',
+		'project-technologies',
+		'projectTechnologies',
+		'html,css,javascript',
+		{
+			formContainer: ['modal-container'],
+			formLabel: ['modal-title'],
+			formInput: ['modal-placeholder'],
+			formLine: ['project-line', 'project-line-active'],
+			formPError: ['error-message-undispl', 'modal-error-text'],
+		},
+	)
 
 	modal.append(modalForm)
 	modalForm.append(titileContainer, technologiesContainer)
-	titileContainer.append(projectTitleLabel, projectTitleInput, projectLineFirst, projectTitleError)
-	technologiesContainer.append(
-		projectTechnologiesLabel,
-		projectTechnologiesInput,
-		projectLineSecond,
-		projectTechnologiesError,
-	)
 
 	// Button
 	const btnsContainer = document.createElement('div')
@@ -284,14 +273,11 @@ function createModalContent(modal) {
 	btnsContainer.append(addBtn)
 
 	return {
-		modalForm,
 		titileContainer,
-		projectTitleLabel,
+		projectTitleInput,
 		projectLineFirst,
 		projectTitleError,
 		technologiesContainer,
-		projectTechnologiesLabel,
-		projectTitleInput,
 		projectTechnologiesInput,
 		projectLineSecond,
 		projectTechnologiesError,
@@ -301,15 +287,13 @@ function createModalContent(modal) {
 
 // Function show modal
 function showModal(projectCardsContainer) {
-	const { modal, modalBackgroung, deleteXSymbol, modalForm } = createModalForm()
+	const { modal, modalBackgroung, deleteXSymbol } = createModalForm()
 	const {
 		titileContainer,
-		projectTitleLabel,
+		projectTitleInput,
 		projectLineFirst,
 		projectTitleError,
 		technologiesContainer,
-		projectTechnologiesLabel,
-		projectTitleInput,
 		projectTechnologiesInput,
 		projectLineSecond,
 		projectTechnologiesError,

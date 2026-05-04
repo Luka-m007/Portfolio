@@ -447,7 +447,7 @@ header {
 }
 
 .modal-container.modal-container-no-margin {
-	margin: 0;
+	/* margin: 0; */
 }
 
 .modal-container.modal-container-tech {
@@ -481,11 +481,11 @@ header {
 }
 .modal-error-text {
 	margin-top: 0.36rem;
-	margin-bottom: 1.92rem;
+	/* margin-bottom: 1.92rem; */
 	font-size: 0.75rem;
 }
 
-/* ABOUT */
+/* ABOUT SECTION*/
 
 .remove-padding {
 	padding: 0 0 5.25rem 0;
@@ -501,6 +501,40 @@ header {
 
 .about-text {
 	white-space: pre-line;
+}
+
+/* CONTACT SECTION */
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	padding: 4.0625rem 7.5rem 0;
+}
+
+.form-title {
+	font-weight: 700;
+	font-size: 2rem;
+	color: var(--navy-color);
+	font-family: 'League Spartan', sans-serif;
+	margin-bottom: 4.0625rem;
+}
+
+.name-email-container {
+	display: flex;
+}
+
+.contact-container:first-child {
+	margin-right: 6.875rem;
+}
+.modal-container.contact-container:last-child {
+	margin: 0;
+}
+
+.name-email-container .modal-container {
+	flex: 1;
+}
+.btn-padding-contact {
+	padding: 4.0625rem 0;
 }
 
 /* FOOTER SECTION */
@@ -675,6 +709,32 @@ header {
 	/* ABOUT */
 
 	.remove-padding {
-		padding: 0 0 5.25rem 0;
+		/* padding: 0 0 5.25rem 0; */
+	}
+
+	/* CONTACT */
+
+	.form-container {
+		padding: 5.25rem 0.625rem 0;
+		font-size: 1.5rem;
+	}
+
+	.form-title {
+		margin-bottom: 1.875rem;
+	}
+	.contact-container:first-child {
+		margin: 0 0 2.5rem;
+	}
+
+	.name-email-container {
+		flex-direction: column;
+		margin-bottom: 2.5rem;
+	}
+
+	.btn-padding-contact {
+		padding: 5.25rem 0.625rem;
+	}
+	.btn-padding-contact .add-btn {
+		width: 100%;
 	}
 }
