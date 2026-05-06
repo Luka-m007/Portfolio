@@ -4,7 +4,6 @@ const liList = document.querySelectorAll('.nav-li')
 const hamburgerMenu = document.querySelector('.nav-hamburger-menu')
 const footerYear = document.querySelector('.footer-year')
 
-// Hamburger menu toggle
 hamburgerMenu.addEventListener('click', () => {
 	const navMobileContainer = document.querySelector('.nav-mobile-container')
 	hamburgerMenu.classList.toggle('nav-menu-mobile')
@@ -17,7 +16,6 @@ hamburgerMenu.addEventListener('click', () => {
 	})
 })
 
-// Header section
 const titleContainer = document.createElement('div')
 const title = document.createElement('h1')
 const subtitle = document.createElement('h2')

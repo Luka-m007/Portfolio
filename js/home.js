@@ -45,24 +45,23 @@ function homeSection() {
 	aboutSection.append(aboutH3, aboutP)
 	mySkillsSection.append(mySkilsH3, mySkillsContainer)
 
-	//about me classlist
+
 	aboutP.classList.add('main-text')
 	aboutH3.classList.add('main-section-title')
 	aboutSection.classList.add('about-me-section', 'flex-column')
 	aboutH3.textContent = 'About me'
-	//my skills classlist
+	
 	mySkilsH3.classList.add('main-section-title')
 	mySkilsH3.textContent = 'My Skills'
 	mySkillsSection.classList.add('my-skills-section')
 	mySkillsContainer.classList.add('my-skills-container')
 
-	//about me text
+	
 	aboutP.textContent =
 		'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.'
 
-	//items container skills
+	
 	skills.forEach(skill => {
-		//skills item container
 		const skillsItem = document.createElement('div')
 		mySkillsContainer.append(skillsItem)
 		const skillsImg = document.createElement('img')
@@ -72,19 +71,19 @@ function homeSection() {
 		skillsImgItem.append(skillsTitle)
 		const skillsExperienceDots = document.createElement('div')
 		skillsImgItem.append(skillsExperienceDots)
-		//skills experience dots
+	
 		for (let i = 0; i < 5; i++) {
 			const dot = document.createElement('div')
 			dot.classList.add('dot')
 			skillsExperienceDots.append(dot)
 		}
 
-		//skills experience years
+		
 		const skillsExperienceYears = document.createElement('h5')
 		skillsImgItem.append(skillsExperienceYears)
 		skillsExperienceYears.textContent = `${skill.experience} years`
 
-		//skills experience dots active
+		
 		const experienceLevel = skillsExperienceYears.textContent.split(' ')[0]
 		const dots = skillsExperienceDots.querySelectorAll('.dot')
 		dots.forEach((dot, index) => {
@@ -93,7 +92,7 @@ function homeSection() {
 			}
 		})
 
-		//classlist
+		
 		skillsImgItem.classList.add('skills-img-item')
 		skillsImg.setAttribute('src', `./img/${skill.language}-symbol.png`)
 		skillsImg.setAttribute('alt', skill.language)

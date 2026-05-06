@@ -19,12 +19,21 @@ function contactSection() {
 	})
 
 	btnSendMessage.addEventListener('click', () => {
+		const message = {
+			name: nameField.input.value,
+			email: emailField.input.value,
+			message: messageField.input.value,
+		}
+
 		const isValid = validateContactForm(nameField, emailField, messageField)
 
 		if (!isValid) return
 
-		console.log('kliknięto')
-		// console.log(nameField.input)
+		messages.push(message)
+
+		nameField.input.value = ''
+		emailField.input.value = ''
+		messageField.input.value = ''
 	})
 }
 
