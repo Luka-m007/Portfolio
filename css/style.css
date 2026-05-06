@@ -446,9 +446,9 @@ header {
 	background-color: var(--main-bgc-color);
 }
 
-.modal-container.modal-container-no-margin {
-	/* margin: 0; */
-}
+/* .modal-container.modal-container-no-margin {
+	margin: 0;
+} */
 
 .modal-container.modal-container-tech {
 	margin: 0 0 3.215rem;
@@ -535,6 +535,26 @@ header {
 }
 .btn-padding-contact {
 	padding: 4.0625rem 0;
+}
+
+/* MESSAGES SECTION */
+
+.messages-container {
+	display: flex;
+	flex-direction: column;
+	gap: 4.0625rem;
+	padding: 4.0625rem 7.5rem;
+}
+
+.message-contain {
+	display: flex;
+	flex-direction: column;
+}
+
+.message-span {
+	font-weight: 700;
+	font-family: 'League Spartan', sans-serif;
+	color: var(--navy-color);
 }
 
 /* FOOTER SECTION */
@@ -709,7 +729,7 @@ header {
 	/* ABOUT */
 
 	.remove-padding {
-		/* padding: 0 0 5.25rem 0; */
+		padding: 0 0 5.25rem 0;
 	}
 
 	/* CONTACT */
@@ -736,5 +756,11 @@ header {
 	}
 	.btn-padding-contact .add-btn {
 		width: 100%;
+	}
+
+	/* MESSAGES */
+	.messages-container {
+		padding: 5.25rem 0.625rem;
+		gap: 5.25rem;
 	}
 }

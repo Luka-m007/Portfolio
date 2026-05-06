@@ -186,7 +186,6 @@ function createModalForm() {
 	return { modal, modalBackgroung, deleteXSymbol }
 }
 
-
 function containerForm(label, pError, name, id, placeholder, classes = {}) {
 	const formContainer = document.createElement('div')
 	const formLabel = document.createElement('label')
