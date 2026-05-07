@@ -170,6 +170,7 @@ function createModalForm() {
 	const modalBackgroung = document.createElement('div')
 	modalBackgroung.classList.add('modal-background')
 	document.body.append(modalBackgroung)
+	document.body.style.overflow = 'hidden'
 
 	// Modal Container
 	const modal = document.createElement('div')
@@ -302,6 +303,7 @@ function showModal(projectCardsContainer) {
 	// EventListener close modal
 	deleteXSymbol.addEventListener('click', () => {
 		modalBackgroung.remove()
+		document.body.style.overflow = ''
 	})
 
 	// EventListener add project
@@ -340,5 +342,6 @@ function showModal(projectCardsContainer) {
 		createProjectCard(projectCardsContainer, project)
 		projectAlert.remove()
 		modalBackgroung.remove()
+		document.body.style.overflow = ''
 	})
 }

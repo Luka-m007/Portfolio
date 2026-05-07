@@ -23,6 +23,13 @@ body {
 	font-size: 16px;
 	background-color: var(--main-bgc-color);
 	color: var(--navy-color);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex: 1;
 }
 
 header,
@@ -32,17 +39,17 @@ footer {
 
 footer {
 	height: 25rem;
-	padding: 3.75rem 7.5rem;
+	/* padding: 3.75rem 7.5rem; */
 }
 
 header {
 	height: 31.25rem;
-	padding: 2.31rem 7.5rem;
+	/* padding: 2.31rem 7.5rem; */
 	position: relative;
 }
 
 /* main {
-	height: 50vh;
+	height: 75vh;
 } */
 
 .wrapper {
@@ -65,6 +72,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	max-width: 1920px;
+	padding: 2.31rem 7.5rem;
 }
 
 .nav-logo {
@@ -97,7 +105,9 @@ header {
 
 .title-container {
 	text-align: center;
-	padding-top: 6.875rem;
+	padding: 6.875rem 0 0;
+	max-width: 33.375rem;
+	/* padding-top: 6.875rem; */
 }
 
 .title {
@@ -241,7 +251,8 @@ header {
 	width: 100%;
 	max-width: calc(3 * 22.5rem + 2 * 2.5625rem + 2 * 8.6875rem);
 	margin: 0 auto;
-	padding: 0 8.6875rem;
+	/* padding: 0 8.6875rem; */
+	padding: 0 3rem;
 }
 
 .carusel-slider {
@@ -485,8 +496,6 @@ header {
 	font-size: 0.75rem;
 }
 
-/* ABOUT SECTION*/
-
 .remove-padding {
 	padding: 0 0 5.25rem 0;
 }
@@ -562,6 +571,7 @@ header {
 .footer-container {
 	display: flex;
 	justify-content: space-between;
+	padding: 3.75rem 7.5rem;
 }
 
 .footer-nav {
@@ -586,16 +596,19 @@ header {
 
 .footer-logo-span {
 	font-weight: 700;
-	font-size: 1.68rem;
+	font-size: 1.6875rem;
+}
+
+.footer-year {
+	color: var(--white-color);
+}
+.footer-copy {
+	color: var(--white-color);
 }
 
 /* MEDIA  */
 
 @media (min-width: 320px) and (max-width: 767px) {
-	header {
-		padding: 0.625rem 1rem;
-	}
-
 	.nav-mobile-container {
 		display: none;
 		position: absolute;
@@ -607,6 +620,10 @@ header {
 		border-bottom: 1px solid var(--main-bgc-color);
 		background-color: var(--navy-color);
 		z-index: 1000;
+	}
+
+	.nav-desktop {
+		padding: 0.625rem 1rem;
 	}
 
 	.title {
@@ -629,7 +646,8 @@ header {
 	}
 
 	.title-container {
-		padding-top: 3.5625rem;
+		/* padding-top: 3.5625rem; */
+		padding: 3.5625rem 1rem 0;
 	}
 
 	.nav-desktop-links {
@@ -643,11 +661,11 @@ header {
 	}
 
 	.my-skills-container {
-		grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		justify-items: center;
 	}
 
-	.carusele-wrapper {
+	/* .carusele-wrapper {
 		padding: 0 0.625rem;
 		display: flex;
 		justify-content: center;
@@ -671,10 +689,14 @@ header {
 
 	.btn-right {
 		transform: rotate(-90deg);
-	}
+	} */
 
 	footer {
 		height: 14.5rem;
+		/* padding: 3.75rem 1.125rem; */
+	}
+
+	.footer-container {
 		padding: 3.75rem 1.125rem;
 	}
 
@@ -699,6 +721,8 @@ header {
 	}
 
 	.project-cards-container {
+		flex-direction: column;
+		align-items: center;
 		padding: 0 0.625rem 2.5625rem;
 		row-gap: 2.5625rem;
 	}
@@ -762,5 +786,85 @@ header {
 	.messages-container {
 		padding: 5.25rem 0.625rem;
 		gap: 5.25rem;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.nav-logo {
+		margin-right: 1rem;
+	}
+	.nav-desktop {
+		padding: 2.31rem 4.5rem;
+	}
+
+	.footer-container {
+		padding: 3.75rem 4.5rem;
+	}
+
+	.home-container {
+		padding: 5.25rem 2.5rem;
+		max-width: 768px;
+	}
+	.carusele-wrapper {
+		padding: 0 2.5rem;
+	}
+
+	.my-skills-container {
+		grid-template-columns: repeat(2, 1fr);
+		justify-items: center;
+	}
+
+	.form-container {
+		padding: 4.0625rem 4.5rem 0;
+	}
+
+	.messages-container {
+		padding: 4.0625rem 4.5rem;
+	}
+}
+
+@media (max-width: 580px) {
+	.my-skills-container {
+		grid-template-columns: repeat(1, 1fr);
+		justify-items: center;
+	}
+}
+
+@media (max-width: 1024px) {
+	.carusele-wrapper {
+		padding: 0 0.625rem;
+		display: flex;
+		justify-content: center;
+	}
+
+	.carusel-container {
+		max-height: calc(3 * 28.75rem + 2 * 2.5625rem);
+		display: flex;
+		justify-content: center;
+	}
+
+	.carusel-slider {
+		flex-direction: column;
+		width: auto;
+		align-items: center;
+	}
+
+	.btn-left {
+		transform: rotate(90deg);
+	}
+
+	.btn-right {
+		transform: rotate(-90deg);
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+	.my-skills-container {
+		grid-template-columns: repeat(3, 1fr);
+		justify-items: center;
+	}
+
+	.carusel-container {
+		max-width: calc(2 * 22.5rem + 2.5625rem);
 	}
 }

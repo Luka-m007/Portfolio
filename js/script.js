@@ -9,18 +9,18 @@ hamburgerMenu.addEventListener('click', () => {
 	hamburgerMenu.classList.toggle('nav-menu-mobile')
 	navMobileContainer.classList.toggle('nav-mobile-shown')
 
-	liList.forEach(item => {
-		item.addEventListener('click', () => {
-			navMobileContainer.classList.remove('nav-mobile-shown')
-		})
-	})
+	// liList.forEach(item => {
+	// 	item.addEventListener('click', () => {
+	// 		navMobileContainer.classList.remove('nav-mobile-shown')
+	// 	})
+	// })
 })
 
 const titleContainer = document.createElement('div')
 const title = document.createElement('h1')
 const subtitle = document.createElement('h2')
 
-titleContainer.classList.add('title-container')
+titleContainer.classList.add('title-container', 'wrapper')
 title.classList.add('title')
 subtitle.classList.add('subtitle')
 

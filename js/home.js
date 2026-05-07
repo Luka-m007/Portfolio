@@ -45,22 +45,19 @@ function homeSection() {
 	aboutSection.append(aboutH3, aboutP)
 	mySkillsSection.append(mySkilsH3, mySkillsContainer)
 
-
 	aboutP.classList.add('main-text')
 	aboutH3.classList.add('main-section-title')
 	aboutSection.classList.add('about-me-section', 'flex-column')
 	aboutH3.textContent = 'About me'
-	
+
 	mySkilsH3.classList.add('main-section-title')
 	mySkilsH3.textContent = 'My Skills'
-	mySkillsSection.classList.add('my-skills-section')
+	mySkillsSection.classList.add('my-skills-section', 'flex-column')
 	mySkillsContainer.classList.add('my-skills-container')
 
-	
 	aboutP.textContent =
 		'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.'
 
-	
 	skills.forEach(skill => {
 		const skillsItem = document.createElement('div')
 		mySkillsContainer.append(skillsItem)
@@ -71,19 +68,17 @@ function homeSection() {
 		skillsImgItem.append(skillsTitle)
 		const skillsExperienceDots = document.createElement('div')
 		skillsImgItem.append(skillsExperienceDots)
-	
+
 		for (let i = 0; i < 5; i++) {
 			const dot = document.createElement('div')
 			dot.classList.add('dot')
 			skillsExperienceDots.append(dot)
 		}
 
-		
 		const skillsExperienceYears = document.createElement('h5')
 		skillsImgItem.append(skillsExperienceYears)
 		skillsExperienceYears.textContent = `${skill.experience} years`
 
-		
 		const experienceLevel = skillsExperienceYears.textContent.split(' ')[0]
 		const dots = skillsExperienceDots.querySelectorAll('.dot')
 		dots.forEach((dot, index) => {
@@ -92,7 +87,6 @@ function homeSection() {
 			}
 		})
 
-		
 		skillsImgItem.classList.add('skills-img-item')
 		skillsImg.setAttribute('src', `./img/${skill.language}-symbol.png`)
 		skillsImg.setAttribute('alt', skill.language)
@@ -115,7 +109,7 @@ function caruseleContent() {
 	const btnLeftUp = document.createElement('img')
 	const btnRightDown = document.createElement('img')
 
-	caruseleWrapper.classList.add('carusele-wrapper')
+	caruseleWrapper.classList.add('carusele-wrapper', 'wrapper')
 	caruselContainer.classList.add('carusel-container')
 	caruselSlider.classList.add('carusel-slider')
 	caruselBtnContainer.classList.add('carusel-btn-container')
