@@ -8,6 +8,7 @@ const projects = [
 const projectAlert = document.createElement('span')
 projectAlert.textContent = 'There are no projects to display'
 projectAlert.classList.add('project-alert')
+projectAlert.style.display = 'none'
 
 //Function create project section
 function projectsSection() {
@@ -23,7 +24,7 @@ function projectsSection() {
 	projectCardsContainer.classList.add('project-cards-container')
 	mainSection.append(projectsContainer)
 
-	projectsContainer.append(btnsContainer, projectCardsContainer)
+	projectsContainer.append(btnsContainer, projectAlert, projectCardsContainer)
 	btnsContainer.append(addBtnProject)
 
 	projects.forEach(project => createProjectCard(projectCardsContainer, project))
@@ -101,7 +102,7 @@ function createProjectCard(projectCardsContainer, project) {
 
 		// Message, no projects
 		if (projects.length === 0) {
-			projectCardsContainer.parentElement.append(projectAlert)
+			projectAlert.style.display = 'block'
 		}
 	})
 }
@@ -122,46 +123,27 @@ function setFieldValidity(isTrue, line, errorText, container) {
 }
 
 // Function validation title in modal
-function validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer) {
-	const title = projectTitile.value.length
+function validationProjectTitile({ input, line, error, container }) {
+	const title = input.value.length
 	if (title < 3 || title > 30) {
-		projectTitleError.textContent =
+		error.textContent =
 			title < 3 ? 'The title must be at least 3 characters long.' : 'The title must not exceed 30 characters.'
-		return setFieldValidity(false, projectLineFirst, projectTitleError, titileContainer)
+		return setFieldValidity(false, line, error, container)
 	}
-	return setFieldValidity(true, projectLineFirst, projectTitleError, titileContainer)
+	return setFieldValidity(true, line, error, container)
 }
 
 // Function validation technologies in modal
-function validationProjectTechnologies(
-	projectTechnologies,
-	projectLineSecond,
-	projectTechnologiesError,
-	technologiesContainer,
-) {
-	const technologies = projectTechnologies.value.length > 0
-	technologiesContainer.classList.toggle('modal-container-tech', technologies)
-	return setFieldValidity(technologies, projectLineSecond, projectTechnologiesError, technologiesContainer)
+function validationProjectTechnologies({ input, line, error, container }) {
+	const technologies = input.value.length > 0
+	container.classList.toggle('modal-container-tech', technologies)
+	return setFieldValidity(technologies, line, error, container)
 }
 
 // Function validation form in modal
-function vaidationProjectForm(
-	projectTitile,
-	projectTechnologies,
-	projectTitleError,
-	projectLineFirst,
-	projectLineSecond,
-	projectTechnologiesError,
-	titileContainer,
-	technologiesContainer,
-) {
-	const titleValid = validationProjectTitile(projectTitile, projectLineFirst, projectTitleError, titileContainer)
-	const technologiesValid = validationProjectTechnologies(
-		projectTechnologies,
-		projectLineSecond,
-		projectTechnologiesError,
-		technologiesContainer,
-	)
+function vaidationProjectForm(title, technologies) {
+	const titleValid = validationProjectTitile(title)
+	const technologiesValid = validationProjectTechnologies(technologies)
 	return titleValid && technologiesValid
 }
 
@@ -273,14 +255,13 @@ function createModalContent(modal) {
 	btnsContainer.append(addBtn)
 
 	return {
-		titileContainer,
-		projectTitleInput,
-		projectLineFirst,
-		projectTitleError,
-		technologiesContainer,
-		projectTechnologiesInput,
-		projectLineSecond,
-		projectTechnologiesError,
+		title: { input: projectTitleInput, line: projectLineFirst, error: projectTitleError, container: titileContainer },
+		technologies: {
+			input: projectTechnologiesInput,
+			line: projectLineSecond,
+			error: projectTechnologiesError,
+			container: technologiesContainer,
+		},
 		addBtn,
 	}
 }
@@ -288,17 +269,7 @@ function createModalContent(modal) {
 // Function show modal
 function showModal(projectCardsContainer) {
 	const { modal, modalBackgroung, deleteXSymbol } = createModalForm()
-	const {
-		titileContainer,
-		projectTitleInput,
-		projectLineFirst,
-		projectTitleError,
-		technologiesContainer,
-		projectTechnologiesInput,
-		projectLineSecond,
-		projectTechnologiesError,
-		addBtn,
-	} = createModalContent(modal)
+	const { title, technologies, addBtn } = createModalContent(modal)
 
 	// EventListener close modal
 	deleteXSymbol.addEventListener('click', () => {
@@ -307,40 +278,26 @@ function showModal(projectCardsContainer) {
 	})
 
 	// EventListener add project
-	projectTitleInput.addEventListener('input', () => {
-		validationProjectTitile(projectTitleInput, projectLineFirst, projectTitleError, titileContainer)
+	title.input.addEventListener('input', () => {
+		validationProjectTitile(title)
 	})
 
-	projectTechnologiesInput.addEventListener('input', () => {
-		validationProjectTechnologies(
-			projectTechnologiesInput,
-			projectLineSecond,
-			projectTechnologiesError,
-			technologiesContainer,
-		)
+	technologies.input.addEventListener('input', () => {
+		validationProjectTechnologies(technologies)
 	})
 	addBtn.addEventListener('click', () => {
 		const project = {
-			title: projectTitleInput.value,
-			technologies: projectTechnologiesInput.value.split(',').map(el => el.trim()),
+			title: title.input.value,
+			technologies: technologies.input.value.split(',').map(el => el.trim()),
 		}
 
-		const isValid = vaidationProjectForm(
-			projectTitleInput,
-			projectTechnologiesInput,
-			projectTitleError,
-			projectLineFirst,
-			projectLineSecond,
-			projectTechnologiesError,
-			titileContainer,
-			technologiesContainer,
-		)
+		const isValid = vaidationProjectForm(title, technologies)
 
 		if (!isValid) return
 
 		projects.push(project)
 		createProjectCard(projectCardsContainer, project)
-		projectAlert.remove()
+		projectAlert.style.display = 'none'
 		modalBackgroung.remove()
 		document.body.style.overflow = ''
 	})
